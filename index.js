@@ -1,4 +1,20 @@
-function Request () {}
+function Request (url, method, cb) {
+  return new Promise((resolve, reject) => {
+    method = method || "GET";
+    let req = new XMLHttpRequest();
+    req.onreadystatechange = () => {
+      let isRequestDone = req.readyState === XMLHttpRequest.DONE;
+      let isRequestSuccess = req.status === 200;
+      if (isRequestDone && isRequestSuccess) {
+        resolve(JSON.parse(req.responseText));
+      } else if (isRequestDone && !isRequestSuccess) {
+        reject(req, req.status);
+      }
+      req.open(method, url);
+      req.send
+    }
+  }).then(cb);
+}
 function RenderList () {}
 function GetHtmlRepoList () {}
 function GetHtmlMemberList () {}
