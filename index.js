@@ -1,18 +1,28 @@
-function Request(requestRL, cb) {
+<<<<<<< HEAD
+
+function Request (url, method, cb) {
   return new Promise((resolve, reject) => {
-    let req = new XMLHttpRequest;
-    function processRequest() {
-      if (req.readyState === 4 && req.status === 200) {
-        resolve(JSON.parse(req.response));
-      } else if (req.readyState === 4 && req.status !== 200) {
-        reject(req, req.status)
+    method = method || "GET";
+    let req = new XMLHttpRequest();
+    req.onreadystatechange = () => {
+      let isRequestDone = req.readyState === XMLHttpRequest.DONE;
+      let isRequestSuccess = req.status === 200;
+      if (isRequestDone && isRequestSuccess) {
+        resolve(JSON.parse(req.responseText));
+      } else if (isRequestDone && !isRequestSuccess) {
+        reject(req, req.status);
       }
+      req.open(method, url);
+      req.send
     }
-    req.open('GET', requestRL, true);
-    req.send();
-    req.onreadystatechange = processRequest;
-  }).then(cb)
+  }).then(cb);
 }
+function RenderList () {}
+function GetHtmlRepoList () {}
+function GetHtmlMemberList () {}
+
+>>>>>>> d76cd5a770698d9a13847282a21305a21682efdd
+
 function RenderList(selector, html) {
   let parent = document.querySelector(selector);
   $parent.innerHTML = html
